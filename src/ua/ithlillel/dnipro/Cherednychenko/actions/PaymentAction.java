@@ -1,12 +1,10 @@
 package ua.ithlillel.dnipro.Cherednychenko.actions;
-import ua.ithlillel.dnipro.Cherednychenko.operations.EquipmentOperationsGeneral;
-import ua.ithlillel.dnipro.Cherednychenko.operations.RevenueAndExpensesCalculations;
 
-public class AddEquipmentPaymentAction implements MenuActions {
+public class PaymentAction implements MenuActions {
 
     private RevenueAndExpensesCalculations revenueAndExpensesCalculations;
 
-    public AddEquipmentPaymentAction(RevenueAndExpensesCalculations revenueAndExpensesCalculations) {
+    public PaymentAction(RevenueAndExpensesCalculations revenueAndExpensesCalculations) {
         this.revenueAndExpensesCalculations = revenueAndExpensesCalculations;
     }
 

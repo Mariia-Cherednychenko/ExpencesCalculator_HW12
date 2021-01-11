@@ -1,6 +1,6 @@
 package ua.ithlillel.dnipro.Cherednychenko;
 import ua.ithlillel.dnipro.Cherednychenko.actions.MenuActions;
-import ua.ithlillel.dnipro.Cherednychenko.operations.PaymentOperations;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;

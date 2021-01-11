@@ -1,7 +1,5 @@
 package ua.ithlillel.dnipro.Cherednychenko;
 
-import ua.ithlillel.dnipro.Cherednychenko.operations.RevenueAndExpensesCalculations;
-
 
 public class ShowResultCalculation {
 

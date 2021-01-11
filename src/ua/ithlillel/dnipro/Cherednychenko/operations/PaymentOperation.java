@@ -1,12 +1,12 @@
 package ua.ithlillel.dnipro.Cherednychenko.operations;
 
 
-abstract class GeneralPaymentOperations implements PaymentOperations {
+class PaymentOperation {
     double expenses;
     double revenue;
     String name;
 
-    public GeneralPaymentOperations(double value, String name) {
+    public PaymentOperation(double value, String name) {
         addPaymentOperation(value);
         this.name=name;
     }
