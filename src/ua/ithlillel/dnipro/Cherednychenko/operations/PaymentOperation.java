@@ -1,34 +1,30 @@
 package ua.ithlillel.dnipro.Cherednychenko.operations;
 
-
 class PaymentOperation {
     double expenses;
     double revenue;
-    String name;
 
-    public PaymentOperation(double value, String name) {
+    public PaymentOperation(double value) {
         addPaymentOperation(value);
-        this.name=name;
     }
 
-    public void addPaymentOperation(double value){
-        if (value>0) {revenue = revenue+value;}
-        else expenses = expenses +value;
+    public void addPaymentOperation(double value) {
+        if (value > 0) {
+            revenue = revenue + value;
+        } else expenses = expenses + value;
     }
 
-    public double getPaymentOperationResult(){
+    public double getPaymentOperationResult() {
         return (expenses + revenue);
     }
 
-    public double getExpenses(){
+    public double getExpenses() {
         return expenses;
     }
 
-    public double getRevenue(){
+    public double getRevenue() {
         return revenue;
     }
 
-    public String getName(){
-        return name;
-    }
+
 }

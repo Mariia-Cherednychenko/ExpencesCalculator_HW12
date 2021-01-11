@@ -1,81 +1,66 @@
 package ua.ithlillel.dnipro.Cherednychenko;
-import ua.ithlillel.dnipro.Cherednychenko.actions.MenuActions;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import ua.ithlillel.dnipro.Cherednychenko.operations.PaymentOperationAnalyser;
+
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
 public class Menu {
-    private MenuActions[] actions;
     private Scanner scanner;
-    ArrayList<PaymentOperations> paymentOperation;
+    PaymentOperationAnalyser paymentOperationAnalyser;
 
-    public Menu(Scanner scanner,ArrayList<PaymentOperations> paymentOperation) {
-        this.actions = new MenuActions[0];
+    public Menu(Scanner scanner, PaymentOperationAnalyser paymentOperationAnalyser) {
         this.scanner = scanner;
-        this.paymentOperation =paymentOperation;
+        this.paymentOperationAnalyser =paymentOperationAnalyser;
     }
 
-    public void addAction(MenuActions action)  {
-        actions = Arrays.copyOf(actions, actions.length+1);
-        actions[actions.length-1]=action;
-    }
 
     public void run() {
-        showMenu();
+        showProgramTerms();
 
         while (true) {
-
-            while (true) {
                 String temp = scanner.nextLine();
 
-                if (checkMenuActionIndex(temp)) {
+                if (temp.equals("END")) {break;}
 
-                }
-
-
-                if (temp.equals("END")) {
-                    break;
-                }
-                executeAction(temp);
+                if (!executeAction(temp)){
+                   System.out.println("Возможно введены неправильные значения.Попробуйте еще раз.");
+                   continue;
+               }
             }
-
-            if (actions.length == 0) {
-                System.out.println("Incorrect input");
-                continue;
-            }
-            break;
-        }
+        showResults();
     }
 
-    private boolean checkMenuActionIndex(String temp) {
-        boolean result=true;
-        int actionNumber = Integer.valueOf(temp);
-        if (actionNumber>0 && actionNumber<5){
-            actionNumber.
-        }
+    private void showResults() {
+        System.out.printf("\nОбщий доход : %.2f\n",paymentOperationAnalyser.getOperationTotalResult());
+        System.out.printf("\nРасходы составляют %.2f из которых: \n  %s\n",
+                paymentOperationAnalyser.getExpensesTotalResult(),
+                paymentOperationAnalyser.getExpensesByKinds());
 
+        System.out.printf("\nДоходы составляют %.2f из которых: \n  %s\n",
+                paymentOperationAnalyser.getRevenueTotalResult(),
+                paymentOperationAnalyser.getRevenueByKinds());
     }
 
-
-    private void showMenu() {
-        for (int i=0; i<actions.length; i++){
-            System.out.printf("%s - %d\n", paymentOperation.get(i).getName(),i+1);
-
-        System.out.println("Введите порядковый номер, затем нажмите ENTER, затем сумму  (с минусом - если расход, с плсом - если доход). " +
+    private void showProgramTerms() {
+        System.out.println("Введите сумму  (с минусом - если расход, с плсом - если доход), затем введите название операции " +
                 "\nДля завершения ввода - нажмите END");
     }
 
-    private void executeAction (String input){
-        String inputPattern = "^([+-]*\\d+)\\s*-\\s*([1-4])+";
+    private boolean executeAction (String input){
+        String inputPattern = "^([+-]*\\d+)[\\s,-]+(\\D+)";
         Pattern pattern = Pattern.compile(inputPattern);
         Matcher matcher = pattern.matcher(input);
+
+        int i=0;
         while (matcher.find()) {
-            actions[Integer.valueOf(matcher.group(2))-1].execute(Integer.valueOf(matcher.group(1)));
+            i++;
+            paymentOperationAnalyser.addOperation(Double.valueOf(matcher.group(1)),matcher.group(2));
         }
+        if (i>0) return true;
+        else return false;
     }
 
 }

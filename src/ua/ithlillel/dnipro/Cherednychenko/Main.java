@@ -1,30 +1,28 @@
 package ua.ithlillel.dnipro.Cherednychenko;
 
-import ua.ithlillel.dnipro.Cherednychenko.actions.*;
 
-import java.util.ArrayList;
+import ua.ithlillel.dnipro.Cherednychenko.operations.PaymentOperationAnalyser;
+
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        RevenueAndExpensesCalculations revenueAndExpensesCalculations = new RevenueAndExpensesCalculations();
 
-        ArrayList<PaymentOperations> paymentOperation = new ArrayList<>();
-        paymentOperation.add(new EquipmentOperationsGeneral(0, "аппаратура"));
-        paymentOperation.add(new PostOperations(0, "почта"));
-        paymentOperation.add(new GoodsOperationsGeneral(0, "товары"));
-        paymentOperation.add(new UnplannedOperations(0, "неплановые услуги"));
+        PaymentOperationAnalyser paymentOperationAnalyser = new PaymentOperationAnalyser();
 
-        Menu menu = new Menu(scanner, paymentOperation);
-        menu.addAction(new PaymentAction(revenueAndExpensesCalculations));
-        menu.addAction(new AddPostPaymentAction(revenueAndExpensesCalculations));
-        menu.addAction(new AddGoodsPaymentAction(revenueAndExpensesCalculations));
-        menu.addAction(new AddUnplannedPaymentAction(revenueAndExpensesCalculations));
+        /*paymentOperationAnalyser.addOperation(-700, "закупка аппаратуры");
+        paymentOperationAnalyser.addOperation(-150, "услуги почты");
+        paymentOperationAnalyser.addOperation(+2000, "продажа товара");
+        paymentOperationAnalyser.addOperation(-200, "услуги почты");
+        paymentOperationAnalyser.addOperation(-100, "неплановые расходы");
+        paymentOperationAnalyser.addOperation(+7525, "продажа товара");*/
 
+        Menu menu = new Menu(scanner,paymentOperationAnalyser);
         menu.run();
-        new ShowResultCalculation(revenueAndExpensesCalculations).showTotalResults();
+
+
 
     }
 }
